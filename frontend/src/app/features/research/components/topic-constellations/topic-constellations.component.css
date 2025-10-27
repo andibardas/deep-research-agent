@@ -1,0 +1,15 @@
+.space {
+  position:relative;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 12px;
+  padding: 8px;
+  background: radial-gradient(700px 300px at 20% -20%, rgba(96, 165, 250, 0.08), transparent), #0b1020;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999
+}

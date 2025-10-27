@@ -1,0 +1,43 @@
+<div class="form-container">
+  <div style="display:flex; gap: 12px; align-items:flex-start;">
+    <textarea class="input"
+              [(ngModel)]="query"
+              rows="2"
+              placeholder="Ask a complex question…"
+              (keydown.enter)="onStartClick()"
+              [disabled]="isLoading"></textarea>
+      <button class="button start-button-floating" (click)="onStartClick()" [disabled]="isLoading || !query.trim()">
+        {{ isLoading ? 'Researching…' : 'Start' }}
+      </button>
+  </div>
+
+  <div style="margin-top:12px;">
+    <!-- Dynamic thinking stream replaced with progress bar -->
+    <div class="assistant-inline" *ngIf="isLoading">
+      <div><strong>Thinking…</strong></div>
+      <div class="progress-wrap">
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="Math.min(95, progress || 0)"></div>
+        </div>
+        <div class="progress-hint">{{ statusHint }}</div>
+      </div>
+    </div>
+
+    <!-- Answer after completion (plain text) -->
+    <div class="assistant-inline" *ngIf="!isLoading && plainLines.length > 0">
+      <div class="report-scroll">
+        <div *ngFor="let line of plainLines; trackBy: trackLine">
+          <span [ngStyle]="{ 'font-weight': line.heading ? 700 : 400, 'font-size.px': line.heading ? 16 : 14 }">{{ line.text }}</span>
+        </div>
+        <div class="thoughts-box" *ngIf="showThoughts">
+          <div *ngFor="let t of thoughts">• {{ t }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:8px; margin-top:8px;" *ngIf="!isLoading && plainLines.length > 0">
+      <button class="button" (click)="downloadMarkdown()">Markdown</button>
+      <button class="button" (click)="downloadPdf()">PDF</button>
+    </div>
+  </div>
+</div>

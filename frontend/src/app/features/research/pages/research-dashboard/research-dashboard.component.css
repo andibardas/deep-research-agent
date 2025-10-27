@@ -1,0 +1,48 @@
+/* Dashboard page-specific minor tweaks; heavy lifting is in global styles */
+:host { display: block; }
+
+.loading-bar {
+  height: 4px;
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.loading-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-600), var(--primary));
+  width: 10%;
+  transition: width .3s ease;
+}
+
+.tabs { display:flex; gap:8px;}
+.tab { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: #e5e7eb; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
+.tab.active, .tab:hover { border-color: rgba(96,165,250,0.5); color: #fff; }
+
+@media (max-width: 900px) {
+  section[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+}
+
+/* Fullscreen visualization overlay */
+.viz-overlay { position: fixed; inset: 0; background: rgba(2,6,23,0.8); backdrop-filter: blur(2px); z-index: 9998; display: flex; align-items: stretch; justify-content: stretch; }
+.viz-modal { width: 100vw; height: 100dvh; display: flex; flex-direction: column; }
+.viz-header { position: sticky; top: 0; z-index: 1; background: rgba(11,16,32,0.96); display:flex; justify-content: flex-end; padding: 8px; }
+.viz-title { font-weight: 700; color: #e5e7eb; }
+.viz-close { width: 36px; height: 36px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); background: transparent; color: #e5e7eb; cursor: pointer; }
+.viz-body { flex: 1; padding: 0; overflow: hidden; display:flex; }
+.viz-body > * { flex: 1; min-height: 0; min-width: 0; }
+/* Remove inner paddings/borders for full bleed in overlay */
+.viz-body .graph-container,
+.viz-body .flow-container,
+.viz-body .timeline,
+.viz-body .space,
+.viz-body .matrix {
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+/* Centered square visual area */
+.viz-scale { flex: 1; display:flex; align-items:center; justify-content:center; overflow: hidden; }
+.viz-canvas { width: 80vw; height: 80vh; display:flex;}
+.viz-content { width: 100%; height: 100%; display:flex;}
+.viz-content > * { flex: 1; min-width: 0; min-height: 0; }

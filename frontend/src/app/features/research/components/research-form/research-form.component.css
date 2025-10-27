@@ -1,0 +1,33 @@
+.form-container { display: flex; flex-direction: column; gap: 12px; position: relative; padding-bottom: 36px; }
+
+textarea.input { min-height: 80px; resize: vertical; }
+
+button.button { white-space: nowrap; height: 44px; width: 10%; display: flex; align-items: center; justify-content: center; margin-top: 15px}
+
+.assistant-inline {
+  white-space: pre-line;
+  line-height: 1.5;
+}
+
+.assistant-inline div + div { margin-top: 4px; }
+
+.thought-toggle { margin-top: 8px; }
+.thoughts-box { margin-top: 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #cbd5e1; background: rgba(17,24,39,0.65); }
+
+.typewriter { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+.type-line { overflow: hidden; border-right: 0; white-space: nowrap; animation-name: typing; animation-timing-function: steps(var(--chars)); animation-fill-mode: forwards; }
+.cursor { margin-left: 2px; color: #94a3b8; animation: blink 1s step-end infinite; }
+@keyframes typing { from { width: 0; } to { width: 100%; } }
+@keyframes blink { 50% { opacity: 0; } }
+
+.progress-wrap { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; }
+.progress-bar { position: relative; height: 8px; border-radius: 999px; background: rgba(148,163,184,0.18); overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #60a5fa, #a78bfa); border-radius: 999px; transition: width 300ms ease; box-shadow: 0 0 16px rgba(96,165,250,0.4); }
+.progress-hint { color: #cbd5e1; font-size: 12px; }
+
+.report-scroll { max-height: calc(100vh - 420px); overflow: auto; padding-right: 6px; }
+
+.start-button-floating {
+  z-index: 10;
+  box-shadow: 0 10px 24px rgba(0,0,0);
+}

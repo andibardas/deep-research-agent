@@ -1,0 +1,50 @@
+<div class="container fade-in">
+  <header class="card card-hover" style="padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <div class="badge">
+        <h1 style="margin:0; font-weight:500; font-size: 18px; letter-spacing:0.3px; padding: 0 10px">Deep Research Agent</h1>
+      </div>
+    </div>
+    <ng-container *ngIf="hasFinalReport">
+      <nav class="tabs">
+        <button class="tab" (click)="openOverlay('argument')">Argument Map</button>
+        <button class="tab" (click)="openOverlay('topics')">Topics</button>
+        <button class="tab" (click)="openOverlay('matrix')">Evidence Matrix</button>
+      </nav>
+    </ng-container>
+  </header>
+
+  <section class="card card-hover" style="padding: 20px; margin-top: 20px;">
+    <app-research-form
+      [isLoading]="(isLoading$ | async) ?? false"
+      [answerMd]="(finalReport$ | async) ?? ''"
+      [progress]="(progress$ | async) ?? 0"
+      (startResearch)="onStartResearch($event)"
+    ></app-research-form>
+  </section>
+
+  <div class="viz-overlay" *ngIf="overlayOpen">
+    <div class="viz-modal">
+      <div class="viz-header">
+        <button class="viz-close" (click)="closeOverlay()">✕</button>
+      </div>
+      <div class="viz-body">
+        <div class="viz-scale">
+          <div class="viz-canvas">
+            <div class="viz-content">
+              @if (graphData$ | async; as graphData) {
+                <ng-container [ngSwitch]="overlayOpen">
+                  <app-knowledge-graph *ngSwitchCase="'argument'" [graphData]="graphData"></app-knowledge-graph>
+                  <app-topic-constellations *ngSwitchCase="'topics'" [graphData]="graphData"></app-topic-constellations>
+                  <app-evidence-matrix *ngSwitchCase="'matrix'" [graphData]="graphData" [matrix]="(evidenceMatrix$ | async) ?? null"></app-evidence-matrix>
+                </ng-container>
+              } @else {
+                <div style="height:100%; display:flex; align-items:center; justify-content:center; color: var(--muted);">No graph data.</div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
